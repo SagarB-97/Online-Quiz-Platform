@@ -8,18 +8,28 @@ var con = mysql.createConnection({
 
 var CREATE_DB_QUERY = "CREATE DATABASE onlinequizplatform;";
 var USE_DB_QUERY = "USE onlinequizplatform;";
-var CREATE_STUDENT_QUERY = "CREATE TABLE Student (student_id INT PRIMARY KEY AUTO_INCREMENT,\
-							name VARCHAR(100),\
-							sex CHAR(1),\
-							class varchar(20),\
-							branch varchar(30),\
-							login_id varchar(50) UNIQUE,\
-							phone varchar(20))";
-var CREATE_TESTSETTER_QUERY = "CREATE TABLE TestSetter (setter_id INT PRIMARY KEY AUTO_INCREMENT,\
-							login_id VARCHAR(50) UNIQUE)"; 
+
 var CREATE_CREDENTIALS_QUERY = "CREATE TABLE Credentials (login_id varchar(50) PRIMARY KEY,\
 								password varchar(50),\
 								privilege INT)";
+
+var CREATE_STUDENT_QUERY = "CREATE TABLE Student (name VARCHAR(100),\
+							sex CHAR(1),\
+							class varchar(20),\
+							branch varchar(30),\
+							login_id varchar(50) PRIMARY KEY,\
+							phone varchar(20),\
+							FOREIGN KEY(login_id) REFERENCES Credentials(login_id) ON DELETE CASCADE)";
+
+var CREATE_TESTSETTER_QUERY = "CREATE TABLE TestSetter (name varchar(100),\
+							sex char(1),\
+							phone varchar(20),\
+							login_id VARCHAR(50) PRIMARY KEY,\
+							FOREIGN KEY(login_id) REFERENCES Credentials(login_id) ON DELETE CASCADE)"; 
+
+
+
+
 
 var CREATE_LISTOFQUIZ_QUERY = "CREATE TABLE ListOfQuizzes (quizid INT PRIMARY KEY,\
 								start_time datetime,\
@@ -31,18 +41,38 @@ var CREATE_LISTOFQUIZ_QUERY = "CREATE TABLE ListOfQuizzes (quizid INT PRIMARY KE
 								responsesid INT,\
 								testsetterid INT)";
 
-var CREATE_QUIZ_QUERY = "CREATE TABLE Quiz (qno INT PRIMARY KEY,\
-						 question varchar(50),\
-						 answer varchar(255),\
+var CREATE_TESTS_ELIGIBLE = "CREATE TABLE TestsEligibleFor(student_id varchar(50),\
+							 testid INT,\
+							 test_taken INT,\
+							 PRIMARY KEY(student_id, testid),\
+							 FOREIGN KEY(student_id) REFERENCES Student(login_id) ON DELETE CASCADE,\
+							 FOREIGN KEY(testid) REFERENCES ListOfQuizzes(quizid) ON DELETE CASCADE)";								
+
+var CREATE_QUIZ_QUERY = "CREATE TABLE Quiz (quizid INT,\
+						 qno INT,\
+						 question TEXT,\
+						 answer TEXT,\
 						 qtype varchar(20),\
-						 marks INT)";
+						 marks INT,\
+						 PRIMARY KEY(quizid,qno),\
+						 FOREIGN KEY(quizid) REFERENCES ListOfQuizzes(quizid) ON DELETE CASCADE)";
 
-var CREATE_LEADERBOARD_QUERY = "CREATE TABLE Leaderboard (Rank INT PRIMARY KEY,\
-								student varchar(100))";
+var CREATE_LEADERBOARD_QUERY = "CREATE TABLE Leaderboard (Rank INT,\
+								student_id varchar(50),\
+								testid INT,\
+								PRIMARY KEY(student_id,testid),\
+								FOREIGN KEY(student_id) REFERENCES Student(login_id) ON DELETE CASCADE,\
+								FOREIGN KEY(testid) REFERENCES ListOfQuizzes(quizid) ON DELETE CASCADE\
+								)";
 
-var CREATE_RESPONSES_QUERY = "CREATE TABLE Responses (student_id INT,\
-							  answers varchar(255),\
-							  marks_alloted INT)";
+var CREATE_RESPONSES_QUERY = "CREATE TABLE Responses (student_id varchar(50),\
+							  quizid INT,\
+							  answers text,\
+							  marks_alloted INT,\
+							  PRIMARY KEY(student_id,quizid),\
+							  FOREIGN KEY(student_id) REFERENCES Student(login_id) ON DELETE CASCADE,\
+							  FOREIGN KEY(quizid) REFERENCES ListOfQuizzes(quizid) ON DELETE CASCADE\
+							  )";
 
 function initStatements(err){
 	if (err) throw err;
@@ -68,6 +98,12 @@ function initStatements(err){
 		console.log("Using DB");
 	});
 
+		// Create Credentials Table
+	con.query(CREATE_CREDENTIALS_QUERY, function (err, result) {
+		if (err) throw err;
+		console.log("Credentials Table created");
+	});
+
 	// Create Student Table
 	con.query(CREATE_STUDENT_QUERY, function (err, result) {
 		if (err) throw err;
@@ -80,16 +116,16 @@ function initStatements(err){
 		console.log("TestSetter Table created");
 	});
 
-	// Create Credentials Table
-	con.query(CREATE_CREDENTIALS_QUERY, function (err, result) {
-		if (err) throw err;
-		console.log("Credentials Table created");
-	});
-
 	// Create List of Quizzes Table
 	con.query(CREATE_LISTOFQUIZ_QUERY, function (err, result) {
 		if (err) throw err;
 		console.log("ListOfQuizzes Table created");
+	});
+
+	// Create Tests Eligible Table
+	con.query(CREATE_TESTS_ELIGIBLE, function (err, result) {
+		if (err) throw err;
+		console.log("Tests Eligible Tablecreated");
 	});
 
 	// Create Quiz Table

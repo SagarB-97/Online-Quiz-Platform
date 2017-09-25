@@ -15,14 +15,16 @@ router.post('/',function(req,res,next){
     var login_id = req.body.login_id;
     var password = req.body.password;
 
-    var INSERT_QUERY_STUDENT = "INSERT INTO Student values\
-                        (NULL,"+
-                        q(name)+","+q(sex)+","+q(clas)+","+q(branch)+","+q(login_id)+","+q(phone)+");";
     var INSERT_QUERY_CREDENTIALS = "INSERT INTO Credentials values ("+
                         q(login_id)+","+q(password)+",2);";
 
+    var INSERT_QUERY_STUDENT = "INSERT INTO Student values\
+                        ("+
+                        q(name)+","+q(sex)+","+q(clas)+","+q(branch)+","+q(login_id)+","+q(phone)+");";
+    
+    inserter(INSERT_QUERY_CREDENTIALS);                        
     inserter(INSERT_QUERY_STUDENT);
-    inserter(INSERT_QUERY_CREDENTIALS);
+
 
     res.render('login');
 });

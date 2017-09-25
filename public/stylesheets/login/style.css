@@ -108,7 +108,7 @@ body {
   width: 100%;
   min-width: 100%;
   height: auto;
-  border-radius: 5px;
+  border-radius: 0px;
   padding: 60px 0 40px;
   overflow: hidden;
 }
@@ -118,7 +118,7 @@ body {
   right: -70px;
   box-shadow: none;
   -webkit-transform: scale(10);
-  transform: scale(10);
+  transform: scale(20);
   -webkit-transition: -webkit-transform .3s ease;
   transition: -webkit-transform .3s ease;
   transition: transform .3s ease;

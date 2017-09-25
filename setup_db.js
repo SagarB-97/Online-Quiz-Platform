@@ -52,6 +52,7 @@ function initStatements(err){
 	// Create DB
 	con.query(CREATE_DB_QUERY, function (err, result) {
 		//console.log(err);
+		if(err)
 		if(err.code === "ER_DB_CREATE_EXISTS")
 		{
 			console.log("Database Already Exists");	

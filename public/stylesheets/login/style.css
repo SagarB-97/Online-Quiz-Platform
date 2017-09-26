@@ -183,10 +183,10 @@ body {
 .card .title {
   position: relative;
   z-index: 1;
-  border-left: 5px solid #ed2553;
+  border-left: 5px solid #2e56ff;
   margin: 0 0 35px;
   padding: 10px 0 10px 50px;
-  color: #ed2553;
+  color: #2e56ff;
   font-size: 32px;
   font-weight: 600;
   text-transform: uppercase;
@@ -347,7 +347,7 @@ body {
 }
 .card.alt .toggle {
   position: relative;
-  background: #ed2553;
+  background: #0081ff;
   width: 140px;
   height: 140px;
   border-radius: 100%;

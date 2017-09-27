@@ -21,9 +21,9 @@ router.post('/',function(req,res,next){
     var INSERT_QUERY_STUDENT = "INSERT INTO Student values\
                         ("+
                         q(name)+","+q(sex)+","+q(clas)+","+q(branch)+","+q(login_id)+","+q(phone)+");";
-    
-    inserter(INSERT_QUERY_CREDENTIALS);                        
-    inserter(INSERT_QUERY_STUDENT);
+
+    inserter(INSERT_QUERY_CREDENTIALS);
+    setTimeout(function (){inserter(INSERT_QUERY_STUDENT)},100);
 
 
     res.render('login');

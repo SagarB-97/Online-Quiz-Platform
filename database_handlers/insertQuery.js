@@ -1,4 +1,4 @@
-module.exports = function (INSERT_QUERY){
+module.exports = function (INSERT_QUERY,callback){
     var mysql = require('mysql');
 
     var con = mysql.createConnection({
@@ -20,4 +20,5 @@ module.exports = function (INSERT_QUERY){
     }
 
     con.connect(insertCallBack);
+    if(callback) callback();
 }

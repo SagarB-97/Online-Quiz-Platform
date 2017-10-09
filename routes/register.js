@@ -22,8 +22,7 @@ router.post('/',function(req,res,next){
                         ("+
                         q(name)+","+q(sex)+","+q(clas)+","+q(branch)+","+q(login_id)+","+q(phone)+");";
 
-    inserter(INSERT_QUERY_CREDENTIALS);
-    setTimeout(function (){inserter(INSERT_QUERY_STUDENT)},100);
+    inserter(INSERT_QUERY_CREDENTIALS,function(){inserter(INSERT_QUERY_STUDENT)});
 
 
     res.render('login');

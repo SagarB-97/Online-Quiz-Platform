@@ -1,4 +1,4 @@
-module.exports = function (SELECT_QUERY){
+module.exports = function (SELECT_QUERY,callback){
     var mysql = require('mysql');
 
     var con = mysql.createConnection({

@@ -15,7 +15,7 @@ function selecter_callback(result, res)
     	res.render('login_error');
     else{
     	res.cookie('login',result[0].login_id);
-        res.redirect('/dashboard');
+        res.redirect('/dashboard/user_profile');
     }
 }
 

@@ -13,7 +13,10 @@ module.exports = function (INSERT_QUERY,callback){
     	console.log("insertQuery.js connected");
     	// Run insert Query
     	con.query(INSERT_QUERY, function (err, result) {
-    		if (err) throw err;
+    		if (err) {
+          console.log(INSERT_QUERY + " : Not executed");
+          throw err;
+        }
     		console.log(INSERT_QUERY + " : successfully executed!");
     	});
       con.end();

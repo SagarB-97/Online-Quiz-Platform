@@ -1,4 +1,4 @@
-module.exports = function (SELECT_QUERY,callback){
+module.exports = function (SELECT_QUERY,callback,res){
     var mysql = require('mysql');
 
     var con = mysql.createConnection({
@@ -14,10 +14,13 @@ module.exports = function (SELECT_QUERY,callback){
     	// Run Select Query
     	con.query(SELECT_QUERY, function (err, result,fields) {
             resultRecords = result;
-    		if (err) throw err;
-    		console.log(SELECT_QUERY + " : successfully executed!");
+    		if (err) {
+    			console.log(SELECT_QUERY + " : Not executed");
+    			throw err;
+    		}
+            console.log(SELECT_QUERY + " : successfully executed!");	
     		con.end();
-    		callback(resultRecords);
+    		callback(resultRecords,res);
     	});
 
     };

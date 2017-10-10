@@ -21,7 +21,12 @@ function selecter_callback(result, res)
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('login');
+    // if(typeof req.cookie=="undefined")
+    //     res.render('login');
+    // else if(!req.cookie.hasOwnProperty('login'))
+    //     res.render('login');
+    // else res.redirect('/dashboard');
+    res.render('login');
 });
 
 router.post('/',function(req,res,next){

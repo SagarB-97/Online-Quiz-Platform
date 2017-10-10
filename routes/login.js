@@ -12,7 +12,7 @@ function logger(result, res)
     console.log("Result = ")
     console.log(result);
     if(result.length == 0)
-    	res.send("Wrong username or password");
+    	res.render('login_error');
     else
     	res.render('Dashboard/dashboard');
 }

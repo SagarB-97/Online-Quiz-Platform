@@ -6,30 +6,27 @@ var selecter = require('../database_handlers/selectQuery.js');
 function q(str){
     return "'"+str+"'";
 }
-
-function logger(result, res)
-{
-    console.log("Result = ")
-    console.log(result);
-    if(result.length == 0)
-    	res.send("Wrong username or password");
-    else
-    	res.render('Dashboard/dashboard');
-}
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('login');
+router.get('/',function(req,res,next){
+    var login_id = req.cookies.login;
+    var SELECT_QUERY = "SELECT * FROM Student WHERE login_id = " + q(login_id) + ";";
+    selecter(SELECT_QUERY,res,function(result,res){
+        res.render('Dashboard/dashboard',result[0]);
+    });
 });
 
-router.post('/',function(req,res,next){
-    //var SELECT_QUERY = "SELECT * FROM Credentials WHERE login_id = " + q(req.body.login_id) + ";";
-    var SELECT_QUERY = "SELECT * From Student where login_id IN (SELECT login_id from Credentials where login_id =\
-    					 " + q(req.body.login_id) +"and password ="+ q(req.body.password)+");";
-    console.log(req.body.login_id + " " + req.body.password);
-	selecter(SELECT_QUERY,logger,res);
-	//res.render('login');
-
+router.get('/user_profile',function(req,res,next){
+    var login_id = req.cookies.login;
+    var SELECT_QUERY = "SELECT * FROM Student WHERE login_id = " + q(login_id) + ";";
+    selecter(SELECT_QUERY,res,function(result,res){
+        res.render('Dashboard/user_profile',result[0]);
+    });
 });
 
+router.get('/tests_list',function(req,res,next){
+    var login_id = req.cookies.login;
+    var SELECT_QUERY = "SELECT * FROM Student WHERE login_id = " + q(login_id) + ";";
+    selecter(SELECT_QUERY,res,function(result,res){
+        res.render('Dashboard/tests_list',result[0]);
+    });
+});
 module.exports = router;

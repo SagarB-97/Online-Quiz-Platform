@@ -16,10 +16,11 @@ module.exports = function (SELECT_QUERY,callback){
             resultRecords = result;
     		if (err) throw err;
     		console.log(SELECT_QUERY + " : successfully executed!");
+    		con.end();
+    		callback(resultRecords);
     	});
 
-    }
+    };
 
     con.connect(selectCallBack);
-    return resultRecords;
 }

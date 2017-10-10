@@ -145,7 +145,7 @@ function initStatements(err){
 		if (err) throw err;
 		console.log("Responses Table created");
 	});
-
+	con.end();
 }
 
 con.connect(initStatements);

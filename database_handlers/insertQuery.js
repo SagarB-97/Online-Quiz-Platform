@@ -16,7 +16,7 @@ module.exports = function (INSERT_QUERY,callback){
     		if (err) throw err;
     		console.log(INSERT_QUERY + " : successfully executed!");
     	});
-
+      con.end();
     }
 
     con.connect(insertCallBack);

@@ -18,10 +18,12 @@ module.exports = function (INSERT_QUERY,callback){
           throw err;
         }
     		console.log(INSERT_QUERY + " : successfully executed!");
+    		if(callback) callback();
+    		con.end();
     	});
-      con.end();
+      
     }
 
     con.connect(insertCallBack);
-    if(callback) callback();
+    
 }

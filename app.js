@@ -9,6 +9,7 @@ var login = require('./routes/login');
 var users = require('./routes/users');
 var register = require('./routes/register');
 var dashboard = require('./routes/dashboard');
+var logout = require('./routes/logout');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', login);
 app.use('/register',register);
 app.use('/dashboard',dashboard);
+app.use('/logout', logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

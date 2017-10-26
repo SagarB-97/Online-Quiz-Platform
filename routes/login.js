@@ -21,11 +21,21 @@ function selecter_callback(result, res)
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-     if(typeof req.cookie=="undefined")
-         res.render('login');
-     else if(!req.cookie.hasOwnProperty('login'))
-         res.render('login');
-     else res.redirect('/dashboard');
+     if(typeof req.cookies=="undefined")
+         {
+            res.render('login');
+            console.log('No login cookie 1');
+        }
+     else if(!req.cookies.hasOwnProperty('login'))
+         {
+            res.render('login');
+            console.log('No login cookie 2');
+        }
+
+     else {
+        res.redirect('/dashboard');
+        console.log('Login cookie found. Auto loggin in');
+    }
     //res.render('login');
 });
 

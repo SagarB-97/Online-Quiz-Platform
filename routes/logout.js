@@ -6,6 +6,7 @@ router.get('/', function(req, res, next){
 	console.log('Logged Out');
 
 	res.clearCookie('login');
+	res.clearCookie('privilege');
 	res.redirect('/');
 });
 

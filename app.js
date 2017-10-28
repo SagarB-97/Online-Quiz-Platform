@@ -35,7 +35,7 @@ app.use('/login_student', login_student);
 app.use('/login_testsetter', login_testsetter);
 
 app.use('/register_student',register_student);
-app.use('/register_testsetter',register_student);
+app.use('/register_testsetter',register_testsetter);
 
 app.use('/dashboard_student',dashboard_student);
 app.use('/dashboard_testsetter',dashboard_testsetter);

@@ -5,11 +5,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var login = require('./routes/login');
-var users = require('./routes/users');
-var register = require('./routes/register');
-var dashboard = require('./routes/dashboard');
+var login_student = require('./routes/login_student');
+var login_testsetter = require('./routes/login_testsetter');
+
+var register_student = require('./routes/register_student');
+var register_testsetter = require('./routes/register_testsetter');
+
+var dashboard_student = require('./routes/dashboard_student');
+var dashboard_testsetter = require('./routes/dashboard_testsetter');
+
 var logout = require('./routes/logout');
+var homepage = require('./routes/homepage');
 
 var app = express();
 
@@ -25,10 +31,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', login);
-app.use('/register',register);
-app.use('/dashboard',dashboard);
+app.use('/login_student', login_student);
+app.use('/login_testsetter', login_testsetter);
+
+app.use('/register_student',register_student);
+app.use('/register_testsetter',register_student);
+
+app.use('/dashboard_student',dashboard_student);
+app.use('/dashboard_testsetter',dashboard_testsetter);
+
 app.use('/logout', logout);
+app.use('/',homepage);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

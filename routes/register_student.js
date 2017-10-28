@@ -25,7 +25,7 @@ router.post('/',function(req,res,next){
     inserter(INSERT_QUERY_CREDENTIALS,function(){inserter(INSERT_QUERY_STUDENT)});
 
 
-    res.render('login');
+    res.render('student/login');
 });
 
 module.exports = router;

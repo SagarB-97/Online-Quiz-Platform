@@ -95,6 +95,7 @@
 										<th>Duration</th>
 										<th>Total Marks</th>
 										<th>Number of Questions</th>
+										<th>Test attemped</th>
                                     </thead>
                                     <tbody>
 										<% for(var i = 0;i<tests_list.length;i++) { %>
@@ -103,6 +104,13 @@
 											<td><%= tests_list[i].duration %> hours</td>
 											<td><%= tests_list[i].total_marks %></td>
 											<td><%= tests_list[i].num_of_questions %></td>
+											<td>
+												<% if(tests_list[i].test_taken) { %>
+													YES
+												<% } else { %>
+													NO
+												<% } %>
+											</td>
                                         </tr>
 										<% } %>
                                     </tbody>

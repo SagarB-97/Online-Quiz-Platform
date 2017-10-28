@@ -17,6 +17,8 @@ var dashboard_testsetter = require('./routes/dashboard_testsetter');
 var logout = require('./routes/logout');
 var homepage = require('./routes/homepage');
 
+var create = require('./routes/create.js')
+
 var app = express();
 
 // view engine setup
@@ -39,6 +41,8 @@ app.use('/register_testsetter',register_testsetter);
 
 app.use('/dashboard_student',dashboard_student);
 app.use('/dashboard_testsetter',dashboard_testsetter);
+
+app.use('/create', create);
 
 app.use('/logout', logout);
 app.use('/',homepage);

@@ -10,7 +10,7 @@ router.get('/',function(req,res,next){
     var login_id = req.cookies.login;
     var SELECT_QUERY = "SELECT * FROM Student WHERE login_id = " + q(login_id) + ";";
     selecter(SELECT_QUERY,res,function(result,res){
-        res.render('Dashboard/dashboard',result[0]);
+        res.render('student/Dashboard/dashboard',result[0]);
     });
 });
 
@@ -18,7 +18,7 @@ router.get('/user_profile',function(req,res,next){
     var login_id = req.cookies.login;
     var SELECT_QUERY = "SELECT * FROM Student WHERE login_id = " + q(login_id) + ";";
     selecter(SELECT_QUERY,res,function(result,res){
-        res.render('Dashboard/user_profile',result[0]);
+        res.render('student/Dashboard/user_profile',result[0]);
     });
 });
 
@@ -32,7 +32,7 @@ router.get('/tests_list',function(req,res,next){
         WHERE TestsEligibleFor.student_id = " + q(login_id) + ";";
         selecter(SELECT_QUERY_TESTS,res,function(result,res){
             console.log(result);
-            res.render('Dashboard/tests_list',{info : info,tests_list : result});
+            res.render('student/Dashboard/tests_list',{info : info,tests_list : result});
         });
     });
 });

@@ -1,0 +1,107 @@
+<head>
+    <title>Take Quiz</title>
+    <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+    <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/Quiz/radio.css" type="text/css" />
+    <link href="/stylesheets/Dashboard/bootstrap.min.css" rel="stylesheet" />
+    <link href="/stylesheets/Dashboard/card_style.css" rel="stylesheet" />
+    <link href="/stylesheets/Dashboard/animate.min.css" rel="stylesheet"/>
+    <link href="/stylesheets/Dashboard/light-bootstrap-dashboard.css" rel="stylesheet"/>
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(1,1,1,0);
+            text-align: center;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar" data-color="blue" data-image="/img/sidebar-5.jpg">
+
+        <div class="sidebar-wrapper">
+            <div class="logo">
+                <a class="simple-text">
+                    Questions
+                </a>
+            </div>
+
+            <ul class="nav">
+                <% for(var i = 0;i<questionList.length;i++) { %>
+                    <li>
+                        <a href="#<%=i%>">
+                            <i class="pe-7s-graph"></i>
+                            <p>Question <b><%=(i+1)%></b></p>
+                        </a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+        <% for(var i = 0;i<questionList.length;i++) { %>
+            <div class = "panel panel-primary"
+                style="margin : 0.25cm 0.25cm 0.25cm 0.25cm;"
+                id="<%=i%>">
+                <div class="panel-heading">
+                    <h4><%= questionList[i].question %></h4>
+                </div>
+                <div class="panel-body">
+                    <form action = "process" method="post" id="mainform">
+                        <% for(var j = 0;j<questionList[i].options.length;j++) { %>
+                            <div class = "radio-button">
+                                <input type="radio" name="<%=i%>" value="<%=j%>" id = "<%=i%>:<%=j%>" />
+                                <label for="<%=i%>:<%=j%>"><%=questionList[i].options[j]%></label>
+                            </div>
+                        <% } %>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <b>Marks Alloted : <%= questionList[i].marks %></b>
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="footer">
+        <button class="btn btn-primary btn-success" name="submit_answer"
+            style="margin : 0.005cm 0.005cm 0.005cm 0.05cm;
+            background-color:green;
+            color:white;
+            opacity:1;">
+            Submit Answers
+        </button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <script>
+        $("button[name='submit_answer']").click(function(){
+            var questionList = <%-JSON.stringify(questionList)%>;
+            var responses = [];
+            for(var i=0;i<questionList.length;i++){
+                var elem = document.querySelector("input[name='"+i+"']:checked");
+                if(elem==null)
+                    responses.push(0);
+                else
+                    responses.push(parseInt(elem.value)+1);
+            }
+            $.post('/quiz/submit_answer/<%=quizid%>',{responses:responses},function(data){
+                document.write(data);
+            });
+        });
+    </script>
+</body>

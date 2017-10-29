@@ -13,7 +13,7 @@ router.get('/',function(req,response,next){
         var info = result[0];
         var SELECT_QUERY_TESTS = "SELECT * from ListOfQuizzes inner join TestsEligibleFor \
         ON ListOfQuizzes.quizid = TestsEligibleFor.testid \
-        WHERE TestsEligibleFor.student_id = " + q(login_id) + ";";
+        WHERE TestsEligibleFor.student_id = " + q(login_id) + "AND test_taken=0;";
         selecter(SELECT_QUERY_TESTS,response,function(result,response){
             var active_tests = [];
             for(var i=0;i<result.length;i++){

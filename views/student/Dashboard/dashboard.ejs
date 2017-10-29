@@ -118,7 +118,9 @@
 			<div class = "container-fluid">
 				<div class = "row">
 					<div class = "col-md-12">
-
+					<% if(active_tests.length==0) { %>
+						<h4>No Active Tests<br />Check results in Tests Tab</h4>
+					<% } %>
 					<% for(var i=0;i<active_tests.length;i++) { %>
 					<a target="_blank" href="/quiz/<%=active_tests[i].quizid%>" style = "color:black;">
 						<div class="blog-card">

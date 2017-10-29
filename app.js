@@ -17,7 +17,8 @@ var dashboard_testsetter = require('./routes/dashboard_testsetter');
 var logout = require('./routes/logout');
 var homepage = require('./routes/homepage');
 
-var create = require('./routes/create.js')
+var create = require('./routes/create');
+var create_question = require('./routes/create_question');
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.use('/dashboard_student',dashboard_student);
 app.use('/dashboard_testsetter',dashboard_testsetter);
 
 app.use('/create', create);
+app.use('/create_question', create_question);
 
 app.use('/logout', logout);
 app.use('/',homepage);

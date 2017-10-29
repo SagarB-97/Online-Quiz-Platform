@@ -34,6 +34,32 @@
 
 	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
 
+	<script>
+		var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+		function pad(n) {
+			return n<10 ? '0'+n : n;
+		}
+		function tConvert (time) {
+			time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+			if (time.length > 1) {
+				time = time.slice (1);
+				time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
+				time[0] = +time[0] % 12 || 12;
+		  	}
+		  	return time.join ('');
+		}
+		function formatDateTime(time){
+			time = new Date(time);
+			var formatted = time.getDate()+" "
+            +monthNames[time.getMonth()]+" "
+            +time.getFullYear()+" , "
+            +tConvert(pad(time.getHours())+":"
+            +pad(time.getMinutes()));
+			return formatted;
+		}
+	</script>
 </head>
 <body>
 
@@ -43,7 +69,7 @@
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a class="simple-text">
-                    <%= name %>
+                    <%= info.name %>
                 </a>
             </div>
 
@@ -93,22 +119,36 @@
 				<div class = "row">
 					<div class = "col-md-12">
 
+					<% for(var i=0;i<active_tests.length;i++) { %>
 					<a href="#" style = "color:black;">
 						<div class="blog-card">
 							<div class="photo photo1"></div>
 							<ul class="details">
-								<li class="author">John Doe</li>
-								<li class="date">Aug. 24, 2015</li>
+								<li class="author"><%= active_tests[i].testsetterid %></li>
+								<li class="date">
+									Start : <b><script>
+										document.write(formatDateTime('<%=active_tests[i].start_time%>'))
+									</script></b>
+								</li>
+								<li class="date">
+									End   : <b><script>
+										document.write(formatDateTime('<%=active_tests[i].end_time%>'))
+									</script></b>
+								</li>
 							</ul>
 							<div class="description">
 								<h1 style="display:block;font-size:2em;font-weight:bold;">
-									Learning to Code
+									ID : <%= active_tests[i].quizid %>
 								</h1>
-								<h2>Opening a door to the future</h2>
-								<p class="summary">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+								<h2><b>Status : <font color = "Green">Active</font></b></h2>
+								<p class="summary">
+									<font color = "red">Duration</font>            : <%= active_tests[i].duration %> Hours<br />
+									<font color = "red">Number of Questions</font> : <%= active_tests[i].num_of_questions %>
+								</p>
 							</div>
 						</div>
 					</a>
+					<% } %>
 
 
 					</div>

@@ -28,6 +28,32 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="/stylesheets/Dashboard/pe-icon-7-stroke.css" rel="stylesheet" />
+	<script>
+		var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+		function pad(n) {
+			return n<10 ? '0'+n : n;
+		}
+		function tConvert (time) {
+			time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+			if (time.length > 1) {
+				time = time.slice (1);
+				time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
+				time[0] = +time[0] % 12 || 12;
+		  	}
+		  	return time.join ('');
+		}
+		function formatDateTime(time){
+			time = new Date(time);
+			var formatted = time.getDate()+" "
+            +monthNames[time.getMonth()]+" "
+            +time.getFullYear()+" , "
+            +tConvert(pad(time.getHours())+":"
+            +pad(time.getMinutes()));
+			return formatted;
+		}
+	</script>
 </head>
 <body>
 
@@ -96,6 +122,8 @@
 										<th>Total Marks</th>
 										<th>Number of Questions</th>
 										<th>Test attemped</th>
+										<th>Start time</th>
+										<th>End time</th>
                                     </thead>
                                     <tbody>
 										<% for(var i = 0;i<tests_list.length;i++) { %>
@@ -110,6 +138,16 @@
 												<% } else { %>
 													NO
 												<% } %>
+											</td>
+											<td>
+												<script>
+													document.write(formatDateTime('<%=tests_list[i].start_time%>'))
+												</script>
+											</td>
+											<td>
+												<script>
+													document.write(formatDateTime('<%=tests_list[i].end_time%>'))
+												</script>
 											</td>
                                         </tr>
 										<% } %>

@@ -19,6 +19,7 @@ var homepage = require('./routes/homepage');
 
 var create = require('./routes/create');
 var create_question = require('./routes/create_question');
+var add_eligible = require('./routes/add_eligible');
 
 var app = express();
 
@@ -45,6 +46,7 @@ app.use('/dashboard_testsetter',dashboard_testsetter);
 
 app.use('/create', create);
 app.use('/create_question', create_question);
+app.use('/add_eligible', add_eligible);
 
 app.use('/logout', logout);
 app.use('/',homepage);

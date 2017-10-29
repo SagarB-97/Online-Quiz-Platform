@@ -39,8 +39,7 @@ router.post('/',function(req,res,next){
     {
         res.clearCookie('qno');
         res.clearCookie('max_qno');
-        res.send("Done creating quiz");
-        //res.clearCookie('quizid');
+        res.redirect('/add_eligible');
     }
 
     else

@@ -99,6 +99,7 @@
                 else
                     responses.push(parseInt(elem.value)+1);
             }
+            responses = responses.join('$');
             $.post('/quiz/submit_answer/<%=quizid%>',{responses:responses},function(data){
                 document.write(data);
             });

@@ -32,6 +32,7 @@ var CREATE_TESTSETTER_QUERY = "CREATE TABLE TestSetter (name varchar(100),\
 
 
 var CREATE_LISTOFQUIZ_QUERY = "CREATE TABLE ListOfQuizzes (quizid INT PRIMARY KEY AUTO_INCREMENT,\
+								name varchar(100),\
 								start_time datetime,\
 								end_time datetime,\
 								total_marks INT,\

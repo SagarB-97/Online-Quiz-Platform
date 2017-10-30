@@ -16,7 +16,7 @@ function selecter_callback(result, res)
     else{
     	res.cookie('login',result[0].login_id);
     	res.cookie('privilege',1);
-        res.redirect('/dashboard_testsetter/user_profile');
+        res.redirect('/dashboard_testsetter/');
     }
 }
 

@@ -25,6 +25,7 @@ function selecter_callback(result, res)
 
 router.post('/',function(req,res,next){
     console.log(req.body);
+    var name = req.body.name;
     var stime = req.body.start_time;
     var etime = req.body.end_time;
     var tmarks = req.body.total_marks;
@@ -36,9 +37,10 @@ router.post('/',function(req,res,next){
     console.log("Max Qno: " + num_of_questions);
 
     var INSERT_QUERY_LIST_OF_QUIZZES = "INSERT INTO ListOfQuizzes values(NULL, "
-                        + q(stime) + ","+ q(etime) + "," + tmarks + "," + num_of_questions + "," +q(login_id)+");";
+                        + q(name) + "," + q(stime) + ","+ q(etime) + "," + tmarks + "," + num_of_questions + "," +q(login_id)+");";
 
-    var SELECT_QUERY = "SELECT * FROM ListOfQuizzes WHERE testsetterid = " + q(login_id) + "AND num_of_questions = " + num_of_questions + " AND start_time = " + q(stime) +";";
+    var SELECT_QUERY = "SELECT * FROM ListOfQuizzes WHERE testsetterid = " + q(login_id) + "AND num_of_questions = "
+     + num_of_questions + " AND start_time = " + q(stime) +"AND name = " + q(name)  +";";
 
     inserter(INSERT_QUERY_LIST_OF_QUIZZES);
 

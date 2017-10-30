@@ -23,21 +23,19 @@ router.get('/user_profile',function(req,res,next){
     });
 });
 
-/*
+
 router.get('/tests_list',function(req,res,next){
     var login_id = req.cookies.login;
-    var SELECT_QUERY_INFO = "SELECT * FROM Student WHERE login_id = " + q(login_id) + ";";
+    var SELECT_QUERY_INFO = "SELECT * FROM TestSetter WHERE login_id = " + q(login_id) + ";";
     selecter(SELECT_QUERY_INFO,res,function(result,res){
         var info = result[0];
-        var SELECT_QUERY_TESTS = "SELECT * from ListOfQuizzes inner join TestsEligibleFor \
-        ON ListOfQuizzes.quizid = TestsEligibleFor.testid \
-        WHERE TestsEligibleFor.student_id = " + q(login_id) + ";";
+        var SELECT_QUERY_TESTS = "SELECT * from ListOfQuizzes WHERE testsetterid = " + q(login_id) + ";";
         selecter(SELECT_QUERY_TESTS,res,function(result,res){
             console.log(result);
-            res.render('student/Dashboard/tests_list',{info : info,tests_list : result});
+            res.render('test_setter/Dashboard/tests_list',{info : info,tests_list : result});
         });
     });
 });
-*/
+
 
 module.exports = router;

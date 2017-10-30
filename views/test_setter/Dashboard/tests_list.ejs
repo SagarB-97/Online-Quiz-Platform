@@ -4,7 +4,7 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Profile</title>
+	<title>Tests</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -21,26 +21,48 @@
 
 
     <!--  CSS for Demo Purpose, don't include it in your project
-    <link href="assets/css/demo.css" rel="stylesheet" />-->
+    <link href="assets/css/demo.css" rel="stylesheet" />  -->
 
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="/stylesheets/Dashboard/pe-icon-7-stroke.css" rel="stylesheet" />
+	<script>
+		var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+		function pad(n) {
+			return n<10 ? '0'+n : n;
+		}
+		function tConvert (time) {
+			time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+			if (time.length > 1) {
+				time = time.slice (1);
+				time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
+				time[0] = +time[0] % 12 || 12;
+		  	}
+		  	return time.join ('');
+		}
+		function formatDateTime(time){
+			time = new Date(time);
+			var formatted = time.getDate()+" "
+            +monthNames[time.getMonth()]+" "
+            +time.getFullYear()+" , "
+            +tConvert(pad(time.getHours())+":"
+            +pad(time.getMinutes()));
+			return formatted;
+		}
+	</script>
 </head>
 <body>
 
 <div class="wrapper">
     <div class="sidebar" data-color="purple" data-image="/img/sidebar-5.jpg">
-
-    <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
-
-
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a class="simple-text">
-                    <%= name %>
+                    <%= info.name %>
                 </a>
             </div>
 
@@ -51,13 +73,13 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li  class="active">
+                <li>
                     <a href="/dashboard_testsetter/user_profile">
                         <i class="pe-7s-user"></i>
                         <p>User Profile</p>
                     </a>
                 </li>
-                <li>
+                <li  class="active">
                     <a href="/dashboard_testsetter/tests_list">
                         <i class="pe-7s-note2"></i>
                         <p>Tests</p>
@@ -68,10 +90,10 @@
     </div>
 
     <div class="main-panel">
-		<nav class="navbar navbar-default navbar-fixed">
+        <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Profile</a>
+                    <a class="navbar-brand" href="#">Tests List</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -84,76 +106,55 @@
                 </div>
             </div>
         </nav>
-
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Your Profile</h4>
+                                <h4 class="title">List of Tests</h4>
                             </div>
-                            <div class="content">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Name</label>
-                                                <input type="text" class="form-control" style = "color:black;"
-												disabled value="<%= name %>">
-                                            </div>
-                                        </div>
-                                    </div>
-									<div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Login ID</label>
-                                                <input type="text" class="form-control" style = "color:black;"
-												disabled value="<%= login_id %>">
-                                            </div>
-                                        </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <th>ID</th>
+										<th>Total Marks</th>
+										<th>Number of Questions</th>
+										<th>Start time</th>
+										<th>End time</th>
+										<th>Quiz</th>
+										<th>Resposnses</th>
+                                    </thead>
+                                    <tbody>
+										<% for(var i = 0;i<tests_list.length;i++) { %>
+                                        <tr>
+                                        	<td><%= tests_list[i].quizid %></td>
+											<td><%= tests_list[i].total_marks %></td>
+											<td><%= tests_list[i].num_of_questions %></td>
+											<td>
+												<script>
+													document.write(formatDateTime('<%=tests_list[i].start_time%>'))
+												</script>
+											</td>
+											<td>
+												<script>
+													document.write(formatDateTime('<%=tests_list[i].end_time%>'))
+												</script>
+											</td>
+											<td>
+													<a href="/quiz/<%=tests_list[i].testid%>">View Quiz</a>
+											</td>
+											<td>
+													<a href="/responses/<%=tests_list[i].testid%>">View Responses</a>
+											</td>
+                                        </tr>
+										<% } %>
+                                    </tbody>
+                                </table>
 
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Sex</label>
-                                                <input type="text" class="form-control" style = "color:black;"
-												disabled value="<%= sex %>">
-                                            </div>
-                                        </div>
-                                    </div>
-									<div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Phone number</label>
-                                                <input type="text" class="form-control" style = "color:black;"
-												disabled value="<%= phone %>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </form>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card card-user">
-                            <div class="image">
-                                <img src="/img/Dashboard/user_background.jpg" alt="..."/>
-                            </div>
-                            <div class="content">
-                                <div class="author">
-                                     <a href="#">
-                                    <img class="avatar border-gray" src="/img/faces/default_face.png" alt="..."/>
-
-                                      <h4 class="title"><%= name %><br />
-                                         <small><%= login_id %></small>
-                                      </h4>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -183,6 +184,7 @@
 	<script src="/js/Dashboard/light-bootstrap-dashboard.js"></script>
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project!
-	<script src="assets/js/demo.js"></script>-->
+	<script src="/js/Dashboard/demo.js"></script>
+    -->
 
 </html>

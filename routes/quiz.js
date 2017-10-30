@@ -62,6 +62,52 @@ router.post('/submit_answer/:quizid',function(req,res,next){
     res.render('student/Quiz/submit_answer');
 });
 
+router.get('/view/:quizid', function(req,res){
+
+    var quizid = req.params.quizid;
+
+    var correct_ans = [];
+    var orig_marks = [];
+    var questionList = [];
+    var tot_marks;
+
+    var SELECT_QUERY_ANSWERS = "SELECT * FROM Quiz WHERE quizid = " + quizid +
+             " ORDER BY qno;";
+    selecter(SELECT_QUERY_ANSWERS,res,function(result,response){
+        for(var i = 0;i<result.length;i++){
+            var questionObj = {};
+
+            var questionOptions = result[i].question.split("$");
+            var marks = result[i].marks;
+
+            questionObj.question = questionOptions[0];
+            questionObj.options = questionOptions.slice(1);
+            questionObj.marks = marks;
+
+
+            questionList.push(questionObj);
+
+            correct_ans.push(result[i].answer);
+            orig_marks.push(result[i].marks);
+        }
+
+        var SELECT_QUERY_MARKS = "SELECT * FROM ListOfQuizzes WHERE quizid = " +q(quizid) + ";";
+
+        selecter(SELECT_QUERY_MARKS,res,function(result,response){
+            totMarks = result[0].total_marks;
+        
+            var objToSend = {correct_ans:correct_ans,
+                            orig_marks:orig_marks,
+                            totMarks:totMarks,
+                            questionList:questionList};
+            response.render('test_setter/Quiz/view_quiz',objToSend);
+        });
+        
+    });
+
+
+});
+
 router.get('/result/:quizid',function(req,res){
     var quizid = req.params.quizid;
     var student_id = req.cookies.login;
@@ -73,7 +119,7 @@ router.get('/result/:quizid',function(req,res){
     var questionList = [];
     var totMarks;
 
-    var SELECT_QUERY_ANSWERS = "SELECT * FROM Quiz WHERE quizid = "+quizid+
+    var SELECT_QUERY_ANSWERS = "SELECT * FROM Quiz WHERE quizid = " + quizid+
              " ORDER BY qno;";
     selecter(SELECT_QUERY_ANSWERS,res,function(result,response){
         for(var i = 0;i<result.length;i++){

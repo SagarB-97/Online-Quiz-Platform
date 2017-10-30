@@ -27,7 +27,7 @@ router.post('/',function(req,res,next){
     var answer = req.body.answer;
     var marks = req.body.marks;
 
-    var qstring = question + "$" + o1 + "$" + o2 + "$" + o3 + "$" + o1;
+    var qstring = question + "$" + o1 + "$" + o2 + "$" + o3 + "$" + o4;
 
     console.log(qstring);
 

@@ -42,11 +42,14 @@ router.post('/',function(req,res,next){
         }
 
         else
-            break;
+            {
+                break;
+                res.clearCookie('quizid');
+            }
 
     }
 
-    res.send("Test Created");
+    res.render('creation_success');
 
 });
 

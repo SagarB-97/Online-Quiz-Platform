@@ -31,15 +31,13 @@ var CREATE_TESTSETTER_QUERY = "CREATE TABLE TestSetter (name varchar(100),\
 
 
 
-var CREATE_LISTOFQUIZ_QUERY = "CREATE TABLE ListOfQuizzes (quizid INT PRIMARY KEY,\
+var CREATE_LISTOFQUIZ_QUERY = "CREATE TABLE ListOfQuizzes (quizid INT PRIMARY KEY AUTO_INCREMENT,\
 								start_time datetime,\
 								end_time datetime,\
-								duration INT,\
 								total_marks INT,\
 								num_of_questions INT,\
-								leaderboardid INT,\
-								responsesid INT,\
-								testsetterid INT)";
+								testsetterid varchar(50),\
+								FOREIGN KEY(testsetterid) REFERENCES Credentials(login_id))";
 
 var CREATE_TESTS_ELIGIBLE = "CREATE TABLE TestsEligibleFor(student_id varchar(50),\
 							 testid INT,\

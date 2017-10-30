@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Responstable 2.0: a responsive table solution</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  
+      <link rel="stylesheet" href="/stylesheets/Creation/select_student/style.css">
+
+  
+</head>
+
+<body>
+  <h1>Add Students</span></h1>
+
+<table class="responstable">
+  
+  <tr>
+    <th>Select to Add</th>
+    <th>Name</th>
+    <th>Class</th>
+    <th>Branch</th>
+    <th>LoginID</th>
+  </tr>
+
+  <% for(var i = 0;i<student.length;i++) { %>
+  <tr>
+      <td><input type="checkbox" class = "ckbox"/></td>
+      <td><%= student[i].name %></td>
+      <td><%= student[i].class %> hours</td>
+      <td><%= student[i].branch %></td>
+      <td class = "loginid"><%= student[i].login_id %></td>
+  </tr>
+  <% } %>
+  
+</table>
+
+<button onclick="submitter()">Submit</button>
+
+<script>
+  function post(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", Number(key));
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+        }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+</script>
+
+<script>
+function submitter() {
+  
+  var checkboxes = document.getElementsByClassName("ckbox");
+  var loginid = document.getElementsByClassName("loginid");
+  var checkboxesChecked = [];
+
+  for (var i=0; i<checkboxes.length; i++) {
+     if (checkboxes[i].checked) {
+        checkboxesChecked.push(loginid[i].innerHTML);
+     }
+  }
+
+  console.log(checkboxesChecked);
+
+  post("/add_eligible", checkboxesChecked);
+}
+
+
+</script>
+
+
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js'></script>
+
+  
+</body>
+</html>

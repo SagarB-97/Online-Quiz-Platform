@@ -125,6 +125,7 @@
 										<th>End time</th>
 										<th>Quiz</th>
 										<th>Resposnses</th>
+										<th>View Leaderboard</th>
                                     </thead>
                                     <tbody>
 										<% for(var i = 0;i<tests_list.length;i++) { %>
@@ -148,6 +149,9 @@
 											</td>
 											<td>
 													<a href="/responses/<%=tests_list[i].quizid%>">View Responses</a>
+											</td>
+											<td>
+													<a href="/leaderboard/<%=tests_list[i].quizid%>">View Leaderboard</a>
 											</td>
                                         </tr>
 										<% } %>

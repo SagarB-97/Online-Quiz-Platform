@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Responstable 2.0: a responsive table solution</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  
+      <link rel="stylesheet" href="/stylesheets/Creation/select_student/style.css">
+
+  
+</head>
+
+<body>
+  <h1>Leaderboard for quiz <%=quiz.name%></span></h1>
+
+<table class="responstable">
+  
+  <tr>
+    <th>Name</th>
+    <th>Marks</th>
+    <th>Class</th>
+    <th>Branch</th>
+  </tr>
+
+  <% for(var i = 0;i<student.length;i++) { %>
+  <tr>
+      <td><%= student[i].name %></td>
+      <td><%= student[i].marks_alloted %></td>
+      <td><%= student[i].class %> hours</td>
+      <td><%= student[i].branch %></td>
+  </tr>
+  <% } %>
+  
+</table>
+
+<form action="/">
+<input type="submit" value="Go Back">
+
+
+
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js'></script>
+
+  
+</body>
+</html>

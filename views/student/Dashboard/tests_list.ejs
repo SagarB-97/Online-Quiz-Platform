@@ -124,6 +124,7 @@
 										<th>Start time</th>
 										<th>End time</th>
 										<th>Result</th>
+                                        <th>View Leaderboard</th>
                                     </thead>
                                     <tbody>
 										<% for(var i = 0;i<tests_list.length;i++) { %>
@@ -156,6 +157,13 @@
 													---
 												<% } %>
 											</td>
+                                            <td>
+                                                <% if(tests_list[i].test_taken) { %>
+                                                    <a href="/leaderboard/<%=tests_list[i].quizid%>">View Leaderboard</a>
+                                                <% } else { %>
+                                                    ---
+                                                <% } %>
+                                            </td>
                                         </tr>
 										<% } %>
                                     </tbody>

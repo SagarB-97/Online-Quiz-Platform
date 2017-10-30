@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Router Objects /////////////////////////////
 var login_student = require('./routes/login_student');
 var login_testsetter = require('./routes/login_testsetter');
 
@@ -16,6 +17,9 @@ var dashboard_testsetter = require('./routes/dashboard_testsetter');
 
 var logout = require('./routes/logout');
 var homepage = require('./routes/homepage');
+
+var quiz = require('./routes/quiz');
+////////////////////////////////////////////////
 
 var app = express();
 
@@ -31,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Using Routes ////////////////////////////
 app.use('/login_student', login_student);
 app.use('/login_testsetter', login_testsetter);
 
@@ -42,6 +47,9 @@ app.use('/dashboard_testsetter',dashboard_testsetter);
 
 app.use('/logout', logout);
 app.use('/',homepage);
+
+app.use('/quiz',quiz);
+//////////////////////////////////////////
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

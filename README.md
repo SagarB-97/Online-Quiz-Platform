@@ -2,10 +2,12 @@
 An Online Quiz Platform
 
 
-An online platform to take quizzes. Built using Nodejs. Backend database is mysql.
-Install mysql for Ubuntu using:
-`sudo apt-get update 
-sudo apt-get install mysql-server`
+An online platform to take quizzes.<br>Built using Nodejs.<br>Backend database is mysql.
+<br>Install mysql for Ubuntu using:<br>
+```
+sudo apt-get update 
+sudo apt-get install mysql-server 
+```
 
 <br><br>
 **Clone the repo:**<br>

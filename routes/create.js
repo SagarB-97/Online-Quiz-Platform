@@ -42,9 +42,10 @@ router.post('/',function(req,res,next){
     var SELECT_QUERY = "SELECT * FROM ListOfQuizzes WHERE testsetterid = " + q(login_id) + "AND num_of_questions = "
      + num_of_questions + " AND start_time = " + q(stime) +"AND name = " + q(name)  +";";
 
-    inserter(INSERT_QUERY_LIST_OF_QUIZZES);
-
-    selecter(SELECT_QUERY, res, selecter_callback);
+    inserter(INSERT_QUERY_LIST_OF_QUIZZES, function(){
+        selecter(SELECT_QUERY, res, selecter_callback);
+    });   
+    
 });
 
 module.exports = router;

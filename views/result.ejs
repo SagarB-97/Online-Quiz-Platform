@@ -1,0 +1,77 @@
+<head>
+    <title>Test Result</title>
+    <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+    <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/Quiz/radio.css" type="text/css" />
+    <link href="/stylesheets/Dashboard/bootstrap.min.css" rel="stylesheet" />
+    <link href="/stylesheets/Dashboard/card_style.css" rel="stylesheet" />
+    <link href="/stylesheets/Dashboard/animate.min.css" rel="stylesheet"/>
+    <link href="/stylesheets/Dashboard/light-bootstrap-dashboard.css" rel="stylesheet"/>
+</head>
+
+<body>
+    <div class="sidebar" data-color="blue" data-image="/img/sidebar-5.jpg">
+
+        <div class="sidebar-wrapper">
+            <div class="logo">
+                <a class="simple-text">
+                      Marks Obtained <br /><b><%=tot_marks%></b>
+                </a>
+            </div>
+
+            <ul class="nav">
+                <% for(var i = 0;i<questionList.length;i++) { %>
+                    <li>
+                        <a href="#<%=i%>">
+                            <i class="pe-7s-graph"></i>
+                            <p>Question <b><%=(i+1)%></b></p>
+                        </a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+        <% for(var i = 0;i<questionList.length;i++) { %>
+            <div class = "panel panel-primary"
+                style="margin : 0.25cm 0.25cm 0.25cm 0.25cm;"
+                id="<%=i%>">
+                <div class="panel-heading">
+                    <h4><%= questionList[i].question %></h4>
+                </div>
+                <div class="panel-body">
+                    <form action = "process" method="post" id="mainform">
+                        <% for(var j = 0;j<questionList[i].options.length;j++) { %>
+                            <div class = "radio-button">
+                                <input type="radio" disabled="disabled"name="<%=i%>" value="<%=j%>" id = "<%=i%>:<%=j%>" />
+                                <label for="<%=i%>:<%=j%>"
+                                    <% if(correct_ans[i]==j+1) {%>
+                                        style="background:#25e876"
+                                    <% } %>
+                                    <% if(student_ans[i]==j+1) { %>
+                                        style = "background:#ea2525;color:white;"
+                                    <% } %>
+                                ><%=questionList[i].options[j]%></label>
+                            </div>
+                        <% } %>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <b>Marks obtained : <%= marks_alloted[i] %></b>
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>

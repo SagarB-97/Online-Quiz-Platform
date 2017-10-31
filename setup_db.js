@@ -56,13 +56,6 @@ var CREATE_QUIZ_QUERY = "CREATE TABLE Quiz (quizid INT,\
 						 PRIMARY KEY(quizid,qno),\
 						 FOREIGN KEY(quizid) REFERENCES ListOfQuizzes(quizid) ON DELETE CASCADE)";
 
-var CREATE_LEADERBOARD_QUERY = "CREATE TABLE Leaderboard (Rank INT,\
-								student_id varchar(50),\
-								testid INT,\
-								PRIMARY KEY(student_id,testid),\
-								FOREIGN KEY(student_id) REFERENCES Student(login_id) ON DELETE CASCADE,\
-								FOREIGN KEY(testid) REFERENCES ListOfQuizzes(quizid) ON DELETE CASCADE\
-								)";
 
 var CREATE_RESPONSES_QUERY = "CREATE TABLE Responses (student_id varchar(50),\
 							  quizid INT,\
@@ -133,11 +126,6 @@ function initStatements(err){
 		console.log("Quiz Table created");
 	});
 
-	//Create Leaderboard Table
-	con.query(CREATE_LEADERBOARD_QUERY, function (err, result) {
-		if (err) throw err;
-		console.log("Leaderboard Table created");
-	});
 
 	//Create Responses Table
 	con.query(CREATE_RESPONSES_QUERY, function (err, result) {

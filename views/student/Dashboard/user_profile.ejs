@@ -32,7 +32,7 @@
 <body>
 
 <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-image="/img/sidebar-5.jpg">
+    <div class="sidebar" data-color="blue" data-image="/img/sidebar-5.jpg">
 
     <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
 
@@ -40,7 +40,7 @@
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a class="simple-text">
-                    <%= name %>
+                    <%= result.name %>
                 </a>
             </div>
 
@@ -100,7 +100,7 @@
                                             <div class="form-group">
                                                 <label>Name</label>
                                                 <input type="text" class="form-control" style = "color:black;"
-												disabled value="<%= name %>">
+												disabled value="<%= result.name %>">
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
                                             <div class="form-group">
                                                 <label>Login ID</label>
                                                 <input type="text" class="form-control" style = "color:black;"
-												disabled value="<%= login_id %>">
+												disabled value="<%= result.login_id %>">
                                             </div>
                                         </div>
 
@@ -117,7 +117,7 @@
                                             <div class="form-group">
                                                 <label>Sex</label>
                                                 <input type="text" class="form-control" style = "color:black;"
-												disabled value="<%= sex %>">
+												disabled value="<%= result.sex %>">
                                             </div>
                                         </div>
                                     </div>
@@ -126,7 +126,23 @@
                                             <div class="form-group">
                                                 <label>Phone number</label>
                                                 <input type="text" class="form-control" style = "color:black;"
-												disabled value="<%= phone %>">
+												disabled value="<%= result.phone %>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Branch</label>
+                                                <input type="text" class="form-control" style = "color:black;"
+                                                disabled value="<%= result.branch %>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Class</label>
+                                                <input type="text" class="form-control" style = "color:black;"
+                                                disabled value="<%= result.class %>">
                                             </div>
                                         </div>
                                     </div>
@@ -145,8 +161,8 @@
                                      <a href="#">
                                     <img class="avatar border-gray" src="/img/faces/default_face.png" alt="..."/>
 
-                                      <h4 class="title"><%= name %><br />
-                                         <small><%= login_id %></small>
+                                      <h4 class="title"><%= result.name %><br />
+                                         <small><%= result.login_id %></small>
                                       </h4>
                                     </a>
                                 </div>

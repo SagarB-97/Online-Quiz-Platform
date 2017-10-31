@@ -118,9 +118,9 @@
                                 <table class="table table-hover table-striped">
                                     <thead>
                                         <th>ID</th>
+										<th>Name</th>
 										<th>Total Marks</th>
 										<th>Number of Questions</th>
-										<th>Test attemped</th>
 										<th>Start time</th>
 										<th>End time</th>
 										<th>Result</th>
@@ -133,13 +133,6 @@
                                             <td><%= tests_list[i].name %></td>
 											<td><%= tests_list[i].total_marks %></td>
 											<td><%= tests_list[i].num_of_questions %></td>
-											<td>
-												<% if(tests_list[i].test_taken) { %>
-													YES
-												<% } else { %>
-													NO
-												<% } %>
-											</td>
 											<td>
 												<script>
 													document.write(formatDateTime('<%=tests_list[i].start_time%>'))
@@ -154,14 +147,14 @@
 												<% if(tests_list[i].test_taken) { %>
 													<a href="/quiz/result/<%=tests_list[i].testid%>">View Result</a>
 												<% } else { %>
-													---
+													Not Attempted
 												<% } %>
 											</td>
                                             <td>
                                                 <% if(tests_list[i].test_taken) { %>
                                                     <a href="/leaderboard/<%=tests_list[i].quizid%>">View Leaderboard</a>
                                                 <% } else { %>
-                                                    ---
+                                                    Not Attempted
                                                 <% } %>
                                             </td>
                                         </tr>

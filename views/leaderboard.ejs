@@ -2,21 +2,41 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Responstable 2.0: a responsive table solution</title>
-  
+  <title>Leaderboard</title>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
-  
-      <link rel="stylesheet" href="/stylesheets/Creation/select_student/style.css">
 
-  
+      <link rel="stylesheet" href="/stylesheets/Creation/select_student/style.css">
+      <style>
+          .button {
+          background-color: #4CAF50; /* Green */
+          border: none;
+          color: white;
+          padding: 16px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          -webkit-transition-duration: 0.4s; /* Safari */
+          transition-duration: 0.4s;
+          cursor: pointer;
+          }
+          .button:hover {
+          background-color: #08510a;
+          color:white;/* Green */
+          }
+      </style>
+
+
 </head>
 
 <body>
   <h1>Leaderboard for quiz <%=quiz.name%></span></h1>
 
 <table class="responstable">
-  
+
   <tr>
     <th>Name</th>
     <th>Marks</th>
@@ -34,16 +54,16 @@
       <td> <a href="/leaderboard/<%=quiz.quizid%>/responses/<%=student[i].login_id%>">View Responses</a> </td>
   </tr>
   <% } %>
-  
+
 </table>
 
 <form action="/">
-<input type="submit" value="Go Back">
+<input type="submit" class="button" value="Go Back">
 
 
 
   <script src='http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js'></script>
 
-  
+
 </body>
 </html>

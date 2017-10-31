@@ -23,6 +23,7 @@ var create = require('./routes/create');
 var create_question = require('./routes/create_question');
 var add_eligible = require('./routes/add_eligible');
 var leaderboard = require('./routes/leaderboard');
+///////////////////////////////////////////////////////////////
 
 var app = express();
 
@@ -57,6 +58,7 @@ app.use('/logout', logout);
 app.use('/',homepage);
 
 app.use('/quiz',quiz);
+
 //////////////////////////////////////////
 
 // catch 404 and forward to error handler

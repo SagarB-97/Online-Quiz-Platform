@@ -54,4 +54,8 @@ router.get('/tests_list',function(req,res,next){
         });
     });
 });
+
+router.get('/test_perf',function(req,res,next){
+    res.send('Test Perf');
+});
 module.exports = router;

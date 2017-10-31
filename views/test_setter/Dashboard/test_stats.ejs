@@ -4,7 +4,7 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Tests</title>
+	<title>Test Satistics</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -28,32 +28,6 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="/stylesheets/Dashboard/pe-icon-7-stroke.css" rel="stylesheet" />
-	<script>
-		var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-		function pad(n) {
-			return n<10 ? '0'+n : n;
-		}
-		function tConvert (time) {
-			time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
-
-			if (time.length > 1) {
-				time = time.slice (1);
-				time[5] = +time[0] < 12 ? ' AM' : ' PM'; // Set AM/PM
-				time[0] = +time[0] % 12 || 12;
-		  	}
-		  	return time.join ('');
-		}
-		function formatDateTime(time){
-			time = new Date(time);
-			var formatted = time.getDate()+" "
-            +monthNames[time.getMonth()]+" "
-            +time.getFullYear()+" , "
-            +tConvert(pad(time.getHours())+":"
-            +pad(time.getMinutes()));
-			return formatted;
-		}
-	</script>
 </head>
 <body>
 
@@ -79,13 +53,13 @@
                         <p>User Profile</p>
                     </a>
                 </li>
-                <li  class="active">
+                <li>
                     <a href="/dashboard_testsetter/tests_list">
                         <i class="pe-7s-note2"></i>
                         <p>Tests</p>
                     </a>
                 </li>
-				<li>
+				<li  class="active">
 					<a href="/dashboard_testsetter/test_stats">
 						<i class="pe-7s-note"></i>
 						<p>Test Statistics</p>
@@ -99,7 +73,7 @@
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Tests List</a>
+                    <a class="navbar-brand" href="#">Test Statistics</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -118,40 +92,24 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">List of Tests</h4>
+                                <h4 class="title">Test Statistics</h4>
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
                                     <thead>
                                         <th>ID</th>
                                         <th>Name</th>
-										<th>Total Marks</th>
-										<th>Number of Questions</th>
-										<th>Start time</th>
-										<th>End time</th>
-										<th>Quiz</th>
-										<th>View Leaderboard</th>
+										<th>Statistics</th>
+                                        <th>Leaderboard</th>
                                     </thead>
                                     <tbody>
 										<% for(var i = 0;i<tests_list.length;i++) { %>
                                         <tr>
                                         	<td><%= tests_list[i].quizid %></td>
                                             <td><%= tests_list[i].name %></td>
-											<td><%= tests_list[i].total_marks %></td>
-											<td><%= tests_list[i].num_of_questions %></td>
-											<td>
-												<script>
-													document.write(formatDateTime('<%=tests_list[i].start_time%>'))
-												</script>
-											</td>
-											<td>
-												<script>
-													document.write(formatDateTime('<%=tests_list[i].end_time%>'))
-												</script>
-											</td>
-											<td>
-													<a href="/quiz/view/<%=tests_list[i].quizid%>">View Quiz</a>
-											</td>
+                                            <td>
+                                                <a href="#" class="statsLink" id="<%=tests_list[i].quizid%>">View Statistics</a>
+                                            </td>
 											<td>
 													<a href="/leaderboard/<%=tests_list[i].quizid%>">View Leaderboard</a>
 											</td>
@@ -194,5 +152,13 @@
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project!
 	<script src="/js/Dashboard/demo.js"></script>
     -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $('.statsLink').click(function(){
+            $.get('/dashboard_testsetter/test_stats/'+$(this).attr('id'),function(response){
+                $('.table').html(response);
+            });
+        });
+    </script>
 
 </html>

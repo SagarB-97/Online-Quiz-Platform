@@ -6,7 +6,6 @@ var selecter = require('../database_handlers/selectQuery.js');
 function q(str){
     return "'"+str+"'";
 }
-
 router.get('/',function(req,res,next){
     var login_id = req.cookies.login;
     var SELECT_QUERY = "SELECT * FROM TestSetter WHERE login_id = " + q(login_id) + ";";
@@ -60,6 +59,7 @@ router.get('/test_stats/:quizid',function(req,res,next){
     selecter(SELECT_QUERY_RESPONSES,res,function(result,res){
         for(var i =0;i<result.length;i++)
             marks.push(result[i].marks_alloted);
+        marks.sort();
         stats.nos = marks.length;
         stats.max = Math.max.apply(Math, marks);
         stats.min = Math.min.apply(Math, marks);
@@ -69,13 +69,22 @@ router.get('/test_stats/:quizid',function(req,res,next){
             sum=sum+marks[i];
         }
         if(stats.nos==0){
-            stats.max=0;
-            stats.min=0;
-            stats.avg=0;
+            stats.max='---';
+            stats.min='---';
+            stats.avg='---';
+            stats.median='---';
         }
-        else
+        else{
             stats.avg = sum/stats.nos;
-        stats.avg = stats.avg.toFixed(2);
+            if (stats.nos % 2 === 0) {
+                stats.median = (marks[marks.length / 2 - 1] + marks[marks.length / 2]) / 2;
+            }
+            else {
+                stats.median = marks[(marks.length - 1) / 2];
+            }
+            stats.avg = stats.avg.toFixed(2);
+            stats.median = stats.median.toFixed(2);
+        }
 
         res.render('test_setter/Dashboard/stats_table',{stats:stats});
     });
